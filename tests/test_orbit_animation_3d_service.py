@@ -1,7 +1,12 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from solar_orbits.domain.orbit_animation_3d_service import OrbitAnimation3DService
 from solar_orbits.model.models import AnimationResult, SolarSystemOrbit
+from solar_orbits.ports.animation_3d.adapters.matplotlib_3d_animator import (
+    Matplotlib3DOrbitAnimator,
+)
 from solar_orbits.ports.animation_3d.orbit_animation_3d import OrbitAnimation3DPort
 
 from tests.conftest import make_solar_system
@@ -51,3 +56,22 @@ def test_animate_orbits_delegates_existing_orbits_to_selected_animator() -> None
     assert animator.received_solar_system is solar_system
     assert animator.received_output_path == "outputs/test_3d.gif"
     assert animator.received_show is True
+
+
+def test_matplotlib_3d_animator_exports_valid_gif(tmp_path: Path) -> None:
+    animator = Matplotlib3DOrbitAnimator()
+    output_path = tmp_path / "matplotlib_3d.gif"
+
+    result = animator.animate(
+        make_solar_system(),
+        output_path=str(output_path),
+        show=False,
+    )
+
+    assert result == AnimationResult(
+        engine="matplotlib-3d",
+        output_path=str(output_path),
+        rendered=True,
+        dimensions="3d",
+    )
+    assert output_path.read_bytes().startswith((b"GIF87a", b"GIF89a"))

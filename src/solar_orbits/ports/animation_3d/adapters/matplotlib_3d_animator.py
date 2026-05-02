@@ -40,7 +40,7 @@ class Matplotlib3DOrbitAnimator(OrbitAnimation3DPort):
             all_xs.extend(xs)
             all_ys.extend(ys)
             all_zs.extend(zs)
-            ax.animate(xs, ys, zs, label=f"{orbit.body.name} orbit", linewidth=1.2)
+            ax.plot(xs, ys, zs, label=f"{orbit.body.name} orbit", linewidth=1.2)
             moving_points.append(
                 ax.scatter([xs[0]], [ys[0]], [zs[0]], s=32, label=orbit.body.name)
             )
