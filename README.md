@@ -47,6 +47,8 @@ El notebook obtiene las orbitas una sola vez y luego renderiza cada motor con la
 - PyVista: 2D y 3D.
 - Vedo: 2D y 3D.
 
+Cada celda de graficador incluye su propio `%pip install` para funcionar tambien en runtimes limpios como Google Colab.
+
 Los GIFs generados se guardan en `outputs/`.
 
 ## Pruebas
