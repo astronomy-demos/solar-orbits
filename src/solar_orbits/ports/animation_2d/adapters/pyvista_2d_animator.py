@@ -24,7 +24,7 @@ class PyVista2DOrbitAnimator(OrbitAnimation2DPort):
             import pyvista as pv
         except ImportError as exc:
             raise ImportError(
-                "PyVista is required for this engine. Run: bash scripts/install.sh"
+                "PyVista is required for this engine. Run the notebook preparation cell."
             ) from exc
 
         if not output_path:
@@ -54,7 +54,7 @@ class PyVista2DOrbitAnimator(OrbitAnimation2DPort):
                 for index, orbit in enumerate(solar_system.orbits)
             ]
         )
-        animator.show_grid(xlabel="X (AU)", ylabel="Y (AU)", zlabel="")
+        animator.show_grid(xtitle="X (AU)", ytitle="Y (AU)", ztitle="Z")
         animator.view_xy()
         animator.open_gif(str(path), fps=15)
 
